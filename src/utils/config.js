@@ -10,6 +10,7 @@ module.exports = {
   api: {
     loginUrl: `${apiTemp}/my_weather_app/login`,
     getWeatherUrl: 'https://weather-ydn-yql.media.yahoo.com/forecastrss',
-    checkLoggedInUrl: `${apiTemp}/my_weather_app/check_logged_in`
+    checkLoggedInUrl: `${apiTemp}/my_weather_app/check_logged_in`, 
+    getLocationsUrl: `${apiTemp}/my_weather_app/get_locations`, 
   },
 };

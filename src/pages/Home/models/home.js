@@ -1,5 +1,5 @@
 import pathToRegexp from 'path-to-regexp';
-import { getWeather } from '../services/home';
+import { getWeather, getLocations } from '../services/home';
 
 export default {
   namespace: 'home',
@@ -12,19 +12,42 @@ export default {
       condition: {},
       wind: {},
     },
+    locations: []
   },
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
         const match = pathToRegexp('/Home').exec(pathname);
         if (match) {
-
+          dispatch({
+            type: "getLocations"
+          });
         }
       });
     },
   },
   effects: {
-    *getWeather({ payload }, { call, put, select }) {      
+    *getLocations({ payload }, { call, put, select }) { 
+      const { success, data } = yield call(getLocations, {});
+      try { 
+        if (success) {
+          yield put({
+            type: "updateState", 
+            payload: {
+              locations: data
+            }
+          })
+        }
+      } catch (error) {
+        yield put({
+          type: "app/errorHandler",
+          payload: {
+            error
+          }
+        });
+      }
+    },
+    *getWeather({ payload }, { call, put, select }) { 
       const { data } = yield call(getWeather, { ...payload });
       const { forecasts, current_observation } = data;
       

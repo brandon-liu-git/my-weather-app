@@ -22,10 +22,10 @@ export default {
     },
     effects: {
       *login({ payload }, { call, put, select }) {
-        const { status, message, userName, currentAuthority, token } = yield call(login, { ...payload });
+        const { success, message, userName, currentAuthority, token } = yield call(login, { ...payload });
         localStorage.clear();
         
-        if (status === 'ok') {
+        if (success) {
           userName && localStorage.set("userName", userName);          
           currentAuthority && localStorage.set("role", currentAuthority);
           token && localStorage.set("jwt", token);

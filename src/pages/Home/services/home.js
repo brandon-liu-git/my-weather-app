@@ -2,12 +2,20 @@ import config from '../../../utils/config';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import _ from 'lodash';
+import request from "../../../utils/request";
 
 const { api, app_id, consumer_key, consumer_secret } = config;
-const { getWeatherUrl } = api;
+const { getWeatherUrl, getLocationsUrl } = api;
 
 let method = 'GET';
 let concat = '&';
+
+export async function getLocations(params) {
+  return request({
+    url: getLocationsUrl,
+    method: "get"
+  });
+}
 
 export async function getWeather(params) {
   const { location } = params;

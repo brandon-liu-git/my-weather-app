@@ -7,7 +7,7 @@ const { loginUrl } = api;
 export async function login(params) {   
   return request({
     url: loginUrl,
-    method: "get",
+    method: "post",
     params
   });
 }

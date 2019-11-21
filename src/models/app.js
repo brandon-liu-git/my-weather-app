@@ -37,8 +37,8 @@ export default {
       if (!token) {
         yield put(routerRedux.push({ pathname: '/Login' }));
       }
-      const { status, message } = yield call(checkLoggedIn, {});
-      if (status === 'failed' || message === 'Logged Out') {
+      const { success, message } = yield call(checkLoggedIn, {});
+      if (!success || message === 'Logged Out') {
         yield put(routerRedux.push({ pathname: '/Login' }));
       } else {
         return;

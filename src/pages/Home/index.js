@@ -39,16 +39,16 @@ class Home extends Component {
   componentDidMount = () => {
     let token = localStorage.get('jwt');
     this.props.dispatch({
-      type: "app/checkLoggedIn", 
+      type: 'app/checkLoggedIn',
       payload: {
-        token
-      }
+        token,
+      },
     });
     window.addEventListener('resize', this.updateDimentions);
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.updateDimentions);     
+    window.removeEventListener('resize', this.updateDimentions);
   };
 
   updateDimentions = () => {
@@ -69,10 +69,10 @@ class Home extends Component {
       });
     } else {
       dispatch({
-        type: 'home/updateState', 
+        type: 'home/updateState',
         payload: {
-          forecasts: []
-        }
+          forecasts: [],
+        },
       });
     }
     this.setState({ location: selectedOption });
@@ -88,7 +88,7 @@ class Home extends Component {
   _handleRowClick = row => {};
 
   render() {
-    const { forecasts, current_observation } = this.props;
+    const { forecasts, current_observation, locations } = this.props;
     const { scrollHeight, location } = this.state;
     const columns = [
       {
@@ -136,8 +136,11 @@ class Home extends Component {
                 option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               }
             >
-              <Option value="Mountain View,CA">Mountain View, CA</Option>
-              {/* <Option value="San Diego,CA">San Diego, CA</Option> */}
+              {locations.map((location, i) => (
+                <Option value={location.location} key={i}>
+                  {location.location}
+                </Option>
+              ))}
             </Select>
           </Col>
           <Col span={19}>

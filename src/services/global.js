@@ -7,7 +7,7 @@ const { checkLoggedInUrl } = api;
 export async function checkLoggedIn(params) {   
   return request({
     url: checkLoggedInUrl,
-    method: "get",
+    method: "post",
     params
   });
 }
